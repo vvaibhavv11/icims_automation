@@ -15,7 +15,6 @@ Fill only the required fields on each page unless additional fields have a clear
 
 🔹 Specific Rules:
 
-for now use this mail id dispite what every mail we have in the resume lkmk@spam4.me
 Resume-Based Filling
 
 for the password field, return an random 6 lenght string.
