@@ -9,4 +9,5 @@ dependencies = [
     "playwright>=1.54.0",
     "playwright-stealth>=2.0.0",
     "pydantic-ai-slim[google]>=0.4.10",
+    "python-dotenv>=1.1.1",
 ]

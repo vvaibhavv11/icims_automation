@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import time
 from prompt import SYSTEM_PROMPT
 
-
+#we can use the url inseted of he file in the fs its is here just for the testing purpose
 with open("/mnt/a/downloads/Lin_Mei_Experiened_Level_Software.pdf", "rb") as f:
     b64 = f.read()
 

@@ -1,4 +1,3 @@
-
 from playwright.async_api import async_playwright, Locator,Page
 from playwright_stealth import Stealth
 from pydantic_ai import Agent, BinaryContent
@@ -8,6 +7,9 @@ from prompt import SYSTEM_PROMPT
 import asyncio
 from core import click_accept_cookies, extract_fields, enter_data_into_form, Item, b64
 import time
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 async def determine_which_button_to_click(buttons: list[Locator]) -> str:
@@ -19,7 +21,7 @@ async def determine_which_button_to_click(buttons: list[Locator]) -> str:
     print(f"Determined button to click: {result.output}")
     return result.output
 
-provider = GoogleProvider(api_key='AIzaSyDoEFuBTh_36lBZD9ekFn0kQByVJiSjBsA')
+provider = GoogleProvider(api_key=f"{os.getenv("GOOGLE_GEMINI_API_KEY")}")
 model = GoogleModel('gemini-2.5-flash', provider=provider)
 Profile_agent = Agent(model, system_prompt=SYSTEM_PROMPT, output_type=list[Item])
 
@@ -103,9 +105,9 @@ async def ask_ai(fields: str, b64: bytes) -> list[Item]:
 async def main():
     try:
         async with Stealth().use_async(async_playwright()) as p:
-            browser = await p.chromium.launch_persistent_context(user_data_dir="/home/vaibhav/.config/chromium", headless=False,args=['--disable-blink-features=AutomationControlled'])
+            browser = await p.chromium.launch(headless=False,args=['--disable-blink-features=AutomationControlled'])
             page = await browser.new_page()
-            job_url = "https://careers.amd.com/careers-home/jobs/67789?lang=en-us"
+            job_url = f"{os.getenv('JOB_URL')}"
             await page.goto(job_url)
             await page.wait_for_load_state("load")
             await hendle_cookie_banner(page)
