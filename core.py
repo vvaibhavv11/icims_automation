@@ -13,10 +13,6 @@ class Item(BaseModel):
     id: str
     answer: str 
 
-# agent = Agent(  
-#     'google-gla:gemini-2.5-pro',
-#     system_prompt='Be concise, reply with one sentence.',
-# )
 
 async def extract_fields(page: Page):
     try:
@@ -32,7 +28,12 @@ async def extract_fields(page: Page):
         form = second_iframe.locator("form")
         return await form.inner_html()
 
-
+""""
+this is the old way to the extaction of the filed not very efficient and not very good
+but it works for some cases, so I will keep it here for now
+but he best way is to just give the html directly to the ai and let it extract the fields
+for that we are using the extract_fields function above
+"""
 async def old_extract_fields(page: Page):
     frame_locator = page.frame_locator("iframe#icims_content_iframe")
     await frame_locator.locator("form").wait_for(state="attached")

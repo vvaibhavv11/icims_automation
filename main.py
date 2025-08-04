@@ -6,7 +6,7 @@ from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.providers.google import GoogleProvider
 from prompt import SYSTEM_PROMPT
 import asyncio
-from test import click_accept_cookies, extract_fields, enter_data_into_form, Item, b64
+from core import click_accept_cookies, extract_fields, enter_data_into_form, Item, b64
 import time
 
 
@@ -79,8 +79,6 @@ async def click_apply_button(page: Page):
         print("Clicked 'Apply' button.")
 
 async def wait_for_page_load(page: Page):
-    """Wait for page and all iframes to load using load events."""
-    # time.sleep(6)
     try:
         await page.wait_for_load_state("load")
         frame_locator = page.frame_locator("iframe#icims_content_iframe")
